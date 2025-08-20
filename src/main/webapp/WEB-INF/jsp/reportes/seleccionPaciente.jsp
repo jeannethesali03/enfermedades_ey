@@ -92,7 +92,7 @@
                                         <td>
                                             <a href="reportes?action=paciente&pacienteId=<%= paciente.getId() %>" 
                                                class="btn btn-success btn-sm">
-                                                <i class="fas fa-file-pdf me-2"></i>Generar PDF
+                                                <i class="fas fa-file-pdf me-2"></i>Ver reporte
                                             </a>
                                         </td>
                                     </tr>

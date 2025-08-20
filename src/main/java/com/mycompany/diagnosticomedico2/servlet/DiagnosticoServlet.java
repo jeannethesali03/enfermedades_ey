@@ -176,18 +176,26 @@ public class DiagnosticoServlet extends HttpServlet {
             }
             
             if (coincidencias > 0) {
-                double porcentaje = (double) coincidencias / sintomasSeleccionados.size() * 100;
+                double porcentaje = (double) coincidencias / enfermedad.getSintomasIds().size() * 100;
+                
+                // Si hay 100% de coincidencia, debe ser un diagnóstico exacto
+                if (porcentaje == 100.0 && sintomasSeleccionados.size() == enfermedad.getSintomasIds().size()) {
+                    diagnostico.setEsExacto(true);
+                    diagnostico.setEnfermedadDiagnosticada(enfermedad.getNombre());
+                    return diagnostico;
+                }
+                
                 ResultadoDiagnostico resultado = new ResultadoDiagnostico(
                     enfermedad.getNombre(), 
                     porcentaje, 
                     coincidencias, 
-                    sintomasSeleccionados.size()
+                    enfermedad.getSintomasIds().size()
                 );
                 resultados.add(resultado);
             }
         }
         
-        // Ordenar por porcentaje de confianza (descendente)
+        // Si no hubo coincidencia exacta, ordenar por porcentaje de confianza (descendente)
         resultados.sort((r1, r2) -> Double.compare(r2.getPorcentajeConfianza(), r1.getPorcentajeConfianza()));
         
         // Tomar las 3 mejores (o menos si no hay suficientes)
@@ -195,8 +203,14 @@ public class DiagnosticoServlet extends HttpServlet {
                 .limit(3)
                 .collect(Collectors.toList());
         
+        // Solo si no hubo coincidencia exacta, establecer como aproximado
         diagnostico.setEsExacto(false);
         diagnostico.setResultadosAproximados(top3);
+        
+        // Establecer la enfermedad con mayor porcentaje como la diagnosticada
+        if (!top3.isEmpty()) {
+            diagnostico.setEnfermedadDiagnosticada(top3.get(0).getNombreEnfermedad());
+        }
         
         if (top3.isEmpty()) {
             diagnostico.setEnfermedadDiagnosticada("No se puede emitir un diagnóstico fiable con la información proporcionada.");

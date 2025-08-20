@@ -98,11 +98,11 @@
         
         if (estadisticas != null) {
             for (EnfermedadEstadistica stat : estadisticas) {
+                totalCasos += stat.getTotalCasos();
+                totalExactos += stat.getCasosExactos();
+                totalAproximados += stat.getCasosAproximados();
                 if (stat.getTotalCasos() > 0) {
                     enfermedadesConCasos++;
-                    totalCasos += stat.getTotalCasos();
-                    totalExactos += stat.getCasosExactos();
-                    totalAproximados += stat.getCasosAproximados();
                 }
             }
         }
@@ -120,28 +120,28 @@
                 </div>
             </div>
             <div class="col-md-3">
+                <div class="card stats-card border-primary">
+                    <div class="card-body text-center">
+                        <i class="fas fa-notes-medical fa-2x text-primary mb-2"></i>
+                        <h4 class="text-primary"><%= totalCasos %></h4>
+                        <p class="mb-0">Total de<br>Casos</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
                 <div class="card stats-card border-success">
                     <div class="card-body text-center">
-                        <i class="fas fa-notes-medical fa-2x text-success mb-2"></i>
-                        <h4 class="text-success"><%= totalCasos %></h4>
-                        <p class="mb-0">Total de<br>Casos</p>
+                        <i class="fas fa-bullseye fa-2x text-success mb-2"></i>
+                        <h4 class="text-success"><%= totalExactos %></h4>
+                        <p class="mb-0">Diagnósticos<br>Exactos</p>
                     </div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="card stats-card border-warning">
                     <div class="card-body text-center">
-                        <i class="fas fa-bullseye fa-2x text-warning mb-2"></i>
-                        <h4 class="text-warning"><%= totalExactos %></h4>
-                        <p class="mb-0">Diagnósticos<br>Exactos</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card stats-card border-info">
-                    <div class="card-body text-center">
-                        <i class="fas fa-search fa-2x text-info mb-2"></i>
-                        <h4 class="text-info"><%= totalAproximados %></h4>
+                        <i class="fas fa-search fa-2x text-warning mb-2"></i>
+                        <h4 class="text-warning"><%= totalAproximados %></h4>
                         <p class="mb-0">Diagnósticos<br>Aproximados</p>
                     </div>
                 </div>
@@ -152,11 +152,11 @@
         <div class="card">
             <div class="card-header bg-light">
                 <h5 class="mb-0">
-                    <i class="fas fa-table me-2"></i>Detalle por Enfermedad
+                    <i class="fas fa-table me-2"></i>Detalle por Enfermedadd
                 </h5>
             </div>
             <div class="card-body p-0">
-                <% if (estadisticas != null && !estadisticas.isEmpty()) { %>
+                <% if (estadisticas != null) { %>
                 <div class="table-responsive">
                     <table class="table table-hover mb-0">
                         <thead class="table-dark">
@@ -166,8 +166,6 @@
                                 <th>Total Casos</th>
                                 <th>Exactos</th>
                                 <th>Aproximados</th>
-                                <th>% Exactitud</th>
-                                <th>Distribución</th>
                                 <th class="no-print">Acciones</th>
                             </tr>
                         </thead>
@@ -175,9 +173,6 @@
                             <% 
                             int contador = 1;
                             for (EnfermedadEstadistica stat : estadisticas) { 
-                                if (stat.getTotalCasos() > 0) {
-                                    double porcentajeExactitud = stat.getTotalCasos() > 0 ? 
-                                        (double) stat.getCasosExactos() / stat.getTotalCasos() * 100 : 0;
                             %>
                             <tr class="disease-row">
                                 <td><strong><%= contador++ %></strong></td>
@@ -200,39 +195,14 @@
                                         <%= stat.getCasosAproximados() %>
                                     </span>
                                 </td>
-                                <td>
-                                    <strong class="<%= porcentajeExactitud >= 70 ? "text-success" : porcentajeExactitud >= 50 ? "text-warning" : "text-danger" %>">
-                                        <%= String.format("%.1f", porcentajeExactitud) %>%
-                                    </strong>
-                                </td>
-                                <td style="width: 200px;">
-                                    <div class="progress" style="height: 20px;">
-                                        <% if (stat.getCasosExactos() > 0) { %>
-                                        <div class="progress-bar progress-exact" 
-                                             style="width: <%= (double) stat.getCasosExactos() / stat.getTotalCasos() * 100 %>%"
-                                             title="Exactos: <%= stat.getCasosExactos() %>">
-                                        </div>
-                                        <% } %>
-                                        <% if (stat.getCasosAproximados() > 0) { %>
-                                        <div class="progress-bar progress-approximate" 
-                                             style="width: <%= (double) stat.getCasosAproximados() / stat.getTotalCasos() * 100 %>%"
-                                             title="Aproximados: <%= stat.getCasosAproximados() %>">
-                                        </div>
-                                        <% } %>
-                                    </div>
-                                    <small class="text-muted">
-                                        <%= stat.getCasosExactos() %> exactos, <%= stat.getCasosAproximados() %> aproximados
-                                    </small>
-                                </td>
                                 <td class="no-print">
-                                    <a href="reportes?action=pacientesEnfermedad&enfermedadNombre=<%= java.net.URLEncoder.encode(stat.getNombre(), "UTF-8") %>" 
+                                    <a href="${pageContext.request.contextPath}/reportes?action=pacientesEnfermedad&enfermedadNombre=<%= java.net.URLEncoder.encode(stat.getNombre(), "UTF-8") %>" 
                                        class="btn btn-sm btn-outline-info">
                                         <i class="fas fa-users me-1"></i>Ver Pacientes
                                     </a>
                                 </td>
                             </tr>
                             <% 
-                                }
                             } 
                             %>
                         </tbody>

@@ -205,19 +205,32 @@ public class ReporteServlet extends HttpServlet {
         // Analizar diagnósticos
         for (Paciente paciente : pacientes) {
             for (Diagnostico diagnostico : paciente.getDiagnosticos()) {
-                String enfermedadNombre = diagnostico.getEnfermedadDiagnosticada();
-                
-                // Si la enfermedad no existe en el mapa, crearla
-                estadisticas.putIfAbsent(enfermedadNombre, new EnfermedadEstadistica(enfermedadNombre));
-                
-                EnfermedadEstadistica stat = estadisticas.get(enfermedadNombre);
-                stat.agregarDiagnostico(paciente, diagnostico);
+                if (diagnostico.isEsExacto()) {
+                    // Para diagnósticos exactos
+                    String enfermedadNombre = diagnostico.getEnfermedadDiagnosticada();
+                    if (estadisticas.containsKey(enfermedadNombre)) {
+                        EnfermedadEstadistica stat = estadisticas.get(enfermedadNombre);
+                        stat.agregarDiagnosticoExacto(paciente, diagnostico);
+                    }
+                } else if (diagnostico.getResultadosAproximados() != null) {
+                    // Para diagnósticos aproximados, agregar a cada enfermedad en los resultados
+                    for (ResultadoDiagnostico resultado : diagnostico.getResultadosAproximados()) {
+                        String enfermedadNombre = resultado.getNombreEnfermedad();
+                        if (estadisticas.containsKey(enfermedadNombre)) {
+                            EnfermedadEstadistica stat = estadisticas.get(enfermedadNombre);
+                            stat.agregarDiagnosticoAproximado(paciente, diagnostico);
+                        }
+                    }
+                }
             }
         }
         
-        // Convertir a lista y ordenar por total de casos
+        // Convertir a lista y ordenar por total de casos (descendente) y nombre (ascendente)
         List<EnfermedadEstadistica> listaEstadisticas = new ArrayList<>(estadisticas.values());
-        listaEstadisticas.sort((e1, e2) -> Integer.compare(e2.getTotalCasos(), e1.getTotalCasos()));
+        listaEstadisticas.sort((e1, e2) -> {
+            int compareByTotalCases = Integer.compare(e2.getTotalCasos(), e1.getTotalCasos());
+            return compareByTotalCases != 0 ? compareByTotalCases : e1.getNombre().compareTo(e2.getNombre());
+        });
         
         request.setAttribute("estadisticasEnfermedades", listaEstadisticas);
         request.setAttribute("fechaGeneracion", new SimpleDateFormat("dd/MM/yyyy HH:mm").format(new Date()));
@@ -239,19 +252,27 @@ public class ReporteServlet extends HttpServlet {
         
         for (Paciente paciente : pacientes) {
             for (Diagnostico diagnostico : paciente.getDiagnosticos()) {
-                if (diagnostico.getEnfermedadDiagnosticada().equals(enfermedadNombre)) {
-                    double porcentaje = 100.0; // Para diagnósticos exactos
-                    
-                    // Si es aproximado, buscar el porcentaje en los resultados aproximados
-                    if (!diagnostico.isEsExacto() && diagnostico.getResultadosAproximados() != null) {
-                        for (ResultadoDiagnostico resultado : diagnostico.getResultadosAproximados()) {
-                            if (resultado.getEnfermedad().equals(enfermedadNombre)) {
-                                porcentaje = resultado.getPorcentajeCoincidencia();
-                                break;
-                            }
+                double porcentaje = 0.0;
+                boolean incluirPaciente = false;
+
+                // Verificar si es un diagnóstico exacto para esta enfermedad
+                if (diagnostico.isEsExacto() && diagnostico.getEnfermedadDiagnosticada().equals(enfermedadNombre)) {
+                    porcentaje = 100.0;
+                    incluirPaciente = true;
+                }
+                // Verificar si es un diagnóstico aproximado que incluye esta enfermedad
+                else if (!diagnostico.isEsExacto() && diagnostico.getResultadosAproximados() != null) {
+                    for (ResultadoDiagnostico resultado : diagnostico.getResultadosAproximados()) {
+                        if (resultado.getNombreEnfermedad().equals(enfermedadNombre)) {
+                            porcentaje = resultado.getPorcentajeConfianza();
+                            incluirPaciente = true;
+                            break;
                         }
                     }
-                    
+                }
+
+                // Si se encontró la enfermedad (ya sea exacta o aproximada), agregar el paciente
+                if (incluirPaciente) {
                     pacientesConEnfermedad.add(new PacienteDiagnosticoDetalle(paciente, diagnostico, porcentaje));
                 }
             }
@@ -285,13 +306,14 @@ public class ReporteServlet extends HttpServlet {
             this.pacientes = new ArrayList<>();
         }
         
-        public void agregarDiagnostico(Paciente paciente, Diagnostico diagnostico) {
+        public void agregarDiagnosticoExacto(Paciente paciente, Diagnostico diagnostico) {
             pacientes.add(new PacienteDiagnostico(paciente, diagnostico));
-            if (diagnostico.isEsExacto()) {
-                casosExactos++;
-            } else {
-                casosAproximados++;
-            }
+            casosExactos++;
+        }
+        
+        public void agregarDiagnosticoAproximado(Paciente paciente, Diagnostico diagnostico) {
+            pacientes.add(new PacienteDiagnostico(paciente, diagnostico));
+            casosAproximados++;
         }
         
         public String getNombre() { return nombre; }

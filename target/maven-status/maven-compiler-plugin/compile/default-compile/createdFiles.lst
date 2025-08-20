@@ -1,15 +1,2 @@
-com\mycompany\diagnosticomedico2\servlet\ReporteServlet.class
-com\mycompany\diagnosticomedico2\servlet\ReporteServlet$EnfermedadEstadistica.class
-com\mycompany\diagnosticomedico2\servlet\SintomaServlet.class
-com\mycompany\diagnosticomedico2\model\Paciente.class
-com\mycompany\diagnosticomedico2\model\ResultadoDiagnostico.class
-com\mycompany\diagnosticomedico2\model\Enfermedad.class
 com\mycompany\diagnosticomedico2\JakartaRestConfiguration.class
-com\mycompany\diagnosticomedico2\model\Sintoma.class
-com\mycompany\diagnosticomedico2\servlet\EnfermedadServlet.class
-com\mycompany\diagnosticomedico2\model\PacienteDiagnosticoDetalle.class
-com\mycompany\diagnosticomedico2\servlet\ReporteServlet$PacienteDiagnostico.class
-com\mycompany\diagnosticomedico2\model\Diagnostico.class
-com\mycompany\diagnosticomedico2\servlet\DiagnosticoServlet.class
 com\mycompany\diagnosticomedico2\resources\JakartaEE10Resource.class
-com\mycompany\diagnosticomedico2\servlet\PacienteServlet.class

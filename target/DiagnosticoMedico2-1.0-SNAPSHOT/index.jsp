@@ -1,4 +1,3 @@
-<%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -225,14 +224,13 @@
                 <div class="col-md-6">
                     <h5>Sistema de Diagnóstico Médico</h5>
                     <p class="text-muted">
-                        Desarrollado con Jakarta EE, Servlets y JSP.<br>
-                        Una solución completa para ayuda al diagnóstico médico.
+                        Eyleen Jeannethe Salinas Hernández<br>
+                        UWilber Anibal Rivas Carranza
                     </p>
                 </div>
                 <div class="col-md-6 text-md-end">
                     <p class="text-muted">
                         <i class="fas fa-calendar me-2"></i>
-                        <%= new java.text.SimpleDateFormat("yyyy").format(new java.util.Date()) %> - 
                         Todos los derechos reservados
                     </p>
                 </div>

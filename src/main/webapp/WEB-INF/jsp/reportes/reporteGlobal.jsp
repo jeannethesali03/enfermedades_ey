@@ -206,7 +206,7 @@
                     <div class="col-12">
                         <h3 class="text-primary mb-3">
                             <i class="fas fa-table me-2"></i>
-                            DIAGNÓSTICOS POR PACIENTE
+                            DIAGNÓSTICOS REALIZADOS
                         </h3>
                         
                         <div class="table-responsive">

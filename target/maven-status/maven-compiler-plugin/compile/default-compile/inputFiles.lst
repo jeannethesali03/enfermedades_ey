@@ -1,12 +1,13 @@
-C:\Java\projects\DiagnosticoMedico2\src\main\java\com\mycompany\diagnosticomedico2\servlet\PacienteServlet.java
-C:\Java\projects\DiagnosticoMedico2\src\main\java\com\mycompany\diagnosticomedico2\resources\JakartaEE10Resource.java
-C:\Java\projects\DiagnosticoMedico2\src\main\java\com\mycompany\diagnosticomedico2\servlet\SintomaServlet.java
-C:\Java\projects\DiagnosticoMedico2\src\main\java\com\mycompany\diagnosticomedico2\model\Paciente.java
-C:\Java\projects\DiagnosticoMedico2\src\main\java\com\mycompany\diagnosticomedico2\servlet\DiagnosticoServlet.java
-C:\Java\projects\DiagnosticoMedico2\src\main\java\com\mycompany\diagnosticomedico2\JakartaRestConfiguration.java
-C:\Java\projects\DiagnosticoMedico2\src\main\java\com\mycompany\diagnosticomedico2\model\Enfermedad.java
-C:\Java\projects\DiagnosticoMedico2\src\main\java\com\mycompany\diagnosticomedico2\model\Sintoma.java
-C:\Java\projects\DiagnosticoMedico2\src\main\java\com\mycompany\diagnosticomedico2\model\ResultadoDiagnostico.java
-C:\Java\projects\DiagnosticoMedico2\src\main\java\com\mycompany\diagnosticomedico2\servlet\ReporteServlet.java
-C:\Java\projects\DiagnosticoMedico2\src\main\java\com\mycompany\diagnosticomedico2\model\Diagnostico.java
-C:\Java\projects\DiagnosticoMedico2\src\main\java\com\mycompany\diagnosticomedico2\servlet\EnfermedadServlet.java
+C:\Users\skysa\Documents\Proyecto de la U\ciclo2-2025\Lab2-Padilla(java)\enfermedades_ey\src\main\java\com\mycompany\diagnosticomedico2\model\PacienteDiagnosticoDetalle.java
+C:\Users\skysa\Documents\Proyecto de la U\ciclo2-2025\Lab2-Padilla(java)\enfermedades_ey\src\main\java\com\mycompany\diagnosticomedico2\servlet\EnfermedadServlet.java
+C:\Users\skysa\Documents\Proyecto de la U\ciclo2-2025\Lab2-Padilla(java)\enfermedades_ey\src\main\java\com\mycompany\diagnosticomedico2\servlet\SintomaServlet.java
+C:\Users\skysa\Documents\Proyecto de la U\ciclo2-2025\Lab2-Padilla(java)\enfermedades_ey\src\main\java\com\mycompany\diagnosticomedico2\model\Paciente.java
+C:\Users\skysa\Documents\Proyecto de la U\ciclo2-2025\Lab2-Padilla(java)\enfermedades_ey\src\main\java\com\mycompany\diagnosticomedico2\model\Diagnostico.java
+C:\Users\skysa\Documents\Proyecto de la U\ciclo2-2025\Lab2-Padilla(java)\enfermedades_ey\src\main\java\com\mycompany\diagnosticomedico2\model\ResultadoDiagnostico.java
+C:\Users\skysa\Documents\Proyecto de la U\ciclo2-2025\Lab2-Padilla(java)\enfermedades_ey\src\main\java\com\mycompany\diagnosticomedico2\model\Enfermedad.java
+C:\Users\skysa\Documents\Proyecto de la U\ciclo2-2025\Lab2-Padilla(java)\enfermedades_ey\src\main\java\com\mycompany\diagnosticomedico2\servlet\DiagnosticoServlet.java
+C:\Users\skysa\Documents\Proyecto de la U\ciclo2-2025\Lab2-Padilla(java)\enfermedades_ey\src\main\java\com\mycompany\diagnosticomedico2\servlet\PacienteServlet.java
+C:\Users\skysa\Documents\Proyecto de la U\ciclo2-2025\Lab2-Padilla(java)\enfermedades_ey\src\main\java\com\mycompany\diagnosticomedico2\model\Sintoma.java
+C:\Users\skysa\Documents\Proyecto de la U\ciclo2-2025\Lab2-Padilla(java)\enfermedades_ey\src\main\java\com\mycompany\diagnosticomedico2\servlet\ReporteServlet.java
+C:\Users\skysa\Documents\Proyecto de la U\ciclo2-2025\Lab2-Padilla(java)\enfermedades_ey\src\main\java\com\mycompany\diagnosticomedico2\resources\JakartaEE10Resource.java
+C:\Users\skysa\Documents\Proyecto de la U\ciclo2-2025\Lab2-Padilla(java)\enfermedades_ey\src\main\java\com\mycompany\diagnosticomedico2\JakartaRestConfiguration.java
